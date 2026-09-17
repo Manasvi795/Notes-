@@ -10,7 +10,7 @@ function App() {
   const handleAddModule = () => {
     const newModule = {
       id: modules.length,
-      title: "New Module",
+      title: "",
       content: "",
       submodules: [],
     };
@@ -35,7 +35,7 @@ function App() {
     if (!parentModule) return;
     const newSubmodule = {
       id: parentModule.submodules.length,
-      title: "New Submodule",
+      title: "",
       content: "",
     };
     setModules((prevModules) =>
@@ -150,7 +150,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="flex min-h-screen">
+      <div className="flex flex-col md:flex-row not-even:min-h-screen">
         <Sidebar
           modules={modules}
           handleAddModule={handleAddModule}

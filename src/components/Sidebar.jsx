@@ -12,9 +12,11 @@ function Sidebar({
   onDeleteSubmodule,
 }) {
   return (
-    <aside className="w-72 min-h-screen bg-[#EEF8FF] border-r border-[#DDEFF9] p-5">
-      <div className="mb-8 px-2 py-3 flex flex-col gap-3">
-        <h1 className="text-4xl font-bold text-slate-800">My Notes</h1>
+    <aside className="w-full md:w-72 min-h-auto md:min-h-screen bg-[#EEF8FF] border-b border-[#DDEFF9] p-4 md:p-5 md:sticky md:top-0 md:h-screen md:overflow-y-auto">
+      <div className="mb-5 md:mb-8 px-2 py-2 md:py-3 flex flex-col gap-2 md:gap-3">
+        <h1 className="text-2xl md:text-4xl font-bold text-slate-800">
+          My Notes
+        </h1>
         <p className="text-sm text-slate-400">Organize your thoughts</p>
       </div>
       <button
