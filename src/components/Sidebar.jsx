@@ -1,12 +1,15 @@
 import AddIcon from "@mui/icons-material/Add";
 
-import Module from "../Module";
+import Module from "./Module";
 
 function Sidebar({
   modules,
   handleAddModule,
   handleSelectModule,
   onDeleteModule,
+  onAddSubmodule,
+  onSelectSubmodule,
+  onDeleteSubmodule,
 }) {
   return (
     <aside className="w-72 min-h-screen bg-[#EEF8FF] border-r border-[#DDEFF9] p-5">
@@ -28,6 +31,9 @@ function Sidebar({
             module={module}
             onSelect={handleSelectModule}
             onDelete={onDeleteModule}
+            onAddSubmodule={onAddSubmodule}
+            onSelectSubmodule={onSelectSubmodule}
+            onDeleteSubmodule={onDeleteSubmodule}
           />
         ))}
         {modules.length === 0 && (

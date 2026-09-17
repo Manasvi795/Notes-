@@ -8,8 +8,8 @@ function Editor({ selectedNote, onSave }) {
 
   useEffect(() => {
     if (selectedNote) {
-      setTitle(selectedNote.title);
-      setContent(selectedNote.content);
+      setTitle(selectedNote.note.title);
+      setContent(selectedNote.note.content);
     } else {
       setTitle("");
       setContent("");
