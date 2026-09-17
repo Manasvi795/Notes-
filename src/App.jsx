@@ -4,7 +4,9 @@ import Editor from "./components/Editor";
 import Sidebar from "./components/Sidebar";
 
 function App() {
-  const [modules, setModules] = useState([]);
+  const [modules, setModules] = useState(
+    JSON.parse(localStorage.getItem("notes")) || [],
+  );
   const [selectedNote, setSelectedNote] = useState(null);
 
   const handleAddModule = () => {
@@ -65,79 +67,68 @@ function App() {
 
   const handleSave = (title, content) => {
     if (!selectedNote) return;
-
+    let newModules;
     if (selectedNote.type === "module") {
-      setModules((prevModules) =>
-        prevModules.map((module) =>
-          module.id === selectedNote.moduleId
-            ? {
-                ...module,
-                title,
-                content,
-              }
-            : module,
-        ),
+      newModules = modules.map((module) =>
+        module.id === selectedNote.moduleId
+          ? {
+              ...module,
+              title,
+              content,
+            }
+          : module,
       );
-      setSelectedNote((prev) => ({
-        ...prev,
-        note: {
-          ...prev.note,
-          title,
-          content,
-        },
-      }));
     }
     if (selectedNote.type === "submodule") {
-      setModules((prevModules) =>
-        prevModules.map((module) =>
-          module.id === selectedNote.moduleId
-            ? {
-                ...module,
-                submodules: module.submodules.map((submodule) =>
-                  submodule.id === selectedNote.note.id
-                    ? {
-                        ...submodule,
-                        title,
-                        content,
-                      }
-                    : submodule,
-                ),
-              }
-            : module,
-        ),
+      newModules = modules.map((module) =>
+        module.id === selectedNote.moduleId
+          ? {
+              ...module,
+              submodules: module.submodules.map((submodule) =>
+                submodule.id === selectedNote.note.id
+                  ? {
+                      ...submodule,
+                      title,
+                      content,
+                    }
+                  : submodule,
+              ),
+            }
+          : module,
       );
-      setSelectedNote((prev) => ({
-        ...prev,
-        note: {
-          ...prev.note,
-          title,
-          content,
-        },
-      }));
     }
+    setModules(newModules);
+    localStorage.setItem("notes", JSON.stringify(newModules));
+    setSelectedNote((prev) => ({
+      ...prev,
+      note: {
+        ...prev.note,
+        title,
+        content,
+      },
+    }));
   };
   const handleDeleteModule = (id) => {
-    setModules((prevModules) =>
-      prevModules.filter((module) => module.id !== id),
-    );
+    const newModules = modules.filter((module) => module.id !== id);
+    setModules(newModules);
+    localStorage.setItem("notes", JSON.stringify(newModules));
     if (selectedNote && selectedNote.moduleId === id) {
       setSelectedNote(null);
     }
   };
   const handleDeleteSubmodule = (moduleId, submoduleId) => {
-    setModules((prevModules) =>
-      prevModules.map((module) =>
-        module.id === moduleId
-          ? {
-              ...module,
-              submodules: module.submodules.filter(
-                (submodule) => submodule.id !== submoduleId,
-              ),
-            }
-          : module,
-      ),
+    const newModules = modules.map((module) =>
+      module.id === moduleId
+        ? {
+            ...module,
+            submodules: module.submodules.filter(
+              (submodule) => submodule.id !== submoduleId,
+            ),
+          }
+        : module,
     );
-
+    setModules(newModules);
+    localStorage.setItem("notes", JSON.stringify(newModules));
     if (
       selectedNote &&
       selectedNote.type === "submodule" &&
