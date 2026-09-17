@@ -41,7 +41,7 @@ function Module({
           <div className="w-2 h-8 rounded-full bg-[#8CCBFA]" />
           <p className="text-sm font-medium text-slate-700">{module.title}</p>
         </div>
-        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
+        <div className="flex items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition">
           <button
             onClick={handleAddSubmodule}
             className="p-1 rounded-md text-slate-400 hover:text-blue-500 hover:bg-blue-50"
